@@ -1,4 +1,4 @@
-name: Deploy
+name: Copy configs to machine
 
 #on:
 #  push:
@@ -32,8 +32,8 @@ jobs:
 
       - name: Transfer server 3 cfg
         run: |
-          scp ./server3_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo/
+          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo/
 
       - name: Transfer server 4 cfg
         run: |
-          scp ./server4_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo
+          scp -o StrictHostKeyChecking=no ./server4_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo
