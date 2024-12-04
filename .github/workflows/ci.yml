@@ -21,19 +21,15 @@ jobs:
 
       - name: Set up SSH
         run: |
-          mkdir -p ~/.ssh
-          echo "Putting private key"
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          echo "Put private key successfully"
-          chmod 600 ~/.ssh/id_rsa
-          echo "Writing host and user"
-          echo -e "Host remote-server\n  HostName ${{ secrets.SSH_HOST }}\n  User ${{ secrets.SSH_USER }}\n  IdentityFile ~/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
-          echo "Wrote host and user successfully"
+          - eval $(ssh-agent -s)
+          - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+          - mkdir -p ~/.ssh
+          - chmod 700 ~/.ssh
 
       - name: Transfer server 3 cfg
         run: |
-          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo/
+          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg $SSH_USER@$SSH_HOST:/root/git_repo/
 
       - name: Transfer server 4 cfg
         run: |
-          scp -o StrictHostKeyChecking=no ./server4_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo
+          scp -o StrictHostKeyChecking=no ./server4_SquadAdminTools.cfg $SSH_USER@$SSH_HOST:/root/git_repo
