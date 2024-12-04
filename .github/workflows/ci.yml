@@ -32,7 +32,7 @@ jobs:
 
       - name: Transfer server 3 cfg
         run: |
-          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg $SSH_USER@$SSH_HOST:/root/git_repo/
+          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/root/git_repo/
 
       - name: Transfer server 4 cfg
         run: |
