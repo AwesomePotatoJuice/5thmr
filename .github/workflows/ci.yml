@@ -25,10 +25,10 @@ jobs:
 
       - name: Set up SSH
         run: |
-           - mkdir -p ~/.ssh/
-           - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ../private.key
-           - sudo chmod 600 ../private.key
-           - echo "$SSH_HOST" > ~/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo -e "Host remote-server\n  HostName ${{ secrets.SSH_HOST }}\n  User ${{ secrets.SSH_USER }}\n  IdentityFile ~/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
 
       - name: Transfer server 3 cfg
         run: |
