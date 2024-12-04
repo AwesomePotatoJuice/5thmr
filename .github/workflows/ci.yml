@@ -8,10 +8,6 @@ name: Copy configs to machine
 #    branches:
 #      - main
 
-#          - chmod 700 ~/.ssh
-#          - eval $(ssh-agent -s)
-#          - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-#          - mkdir -p ~/.ssh
 on:
   workflow_dispatch
 
@@ -32,6 +28,7 @@ jobs:
 
   transfer-3:
     runs-on: self-hosted
+    needs: setup
 
     steps:
       - name: Transfer server 3 cfg
@@ -41,6 +38,7 @@ jobs:
 
   transfer-4:
     runs-on: self-hosted
+    needs: setup
 
     steps:
       - name: Transfer server 4 cfg
