@@ -36,7 +36,7 @@ jobs:
     steps:
       - name: Transfer server 3 cfg
         run: |
-          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/root/git_repo
+          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$CONFIG_PATH_TEST
 
   transfer-4:
     runs-on: self-hosted
@@ -44,4 +44,4 @@ jobs:
     steps:
       - name: Transfer server 4 cfg
         run: |
-          scp -o StrictHostKeyChecking=no ./server4_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/root/git_repo
+          scp -o StrictHostKeyChecking=no ./server4_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:$CONFIG_PATH_TEST
