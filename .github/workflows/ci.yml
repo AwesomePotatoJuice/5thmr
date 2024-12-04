@@ -1,0 +1,35 @@
+name: Deploy
+
+#on:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+
+on:
+  workflow_dispatch
+
+jobs:
+  transfer-file:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo -e "Host remote-server\n  HostName ${{ secrets.SSH_HOST }}\n  User ${{ secrets.SSH_USER }}\n  IdentityFile ~/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
+
+      - name: Transfer server 3
+        run: |
+          scp ./server3_SquadAdminTools.cfg remote-server:/root/git_repo/
+
+      - name: Transfer server 4
+        run: |
+          scp ./server4_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo
