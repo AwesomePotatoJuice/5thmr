@@ -22,14 +22,18 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
+          echo "Putting private key"
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "Put private key successfully"
           chmod 600 ~/.ssh/id_rsa
+          echo "Writing host and user"
           echo -e "Host remote-server\n  HostName ${{ secrets.SSH_HOST }}\n  User ${{ secrets.SSH_USER }}\n  IdentityFile ~/.ssh/id_rsa\n  StrictHostKeyChecking no" > ~/.ssh/config
+          echo "Wrote host and user successfully"
 
-      - name: Transfer server 3
+      - name: Transfer server 3 cfg
         run: |
-          scp ./server3_SquadAdminTools.cfg remote-server:/root/git_repo/
+          scp ./server3_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo/
 
-      - name: Transfer server 4
+      - name: Transfer server 4 cfg
         run: |
           scp ./server4_SquadAdminTools.cfg ${{ secrets.SSH_HOST }}:/root/git_repo
