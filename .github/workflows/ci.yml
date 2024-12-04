@@ -34,7 +34,7 @@ jobs:
       - name: Transfer server 3 cfg
         run: |
           echo "Copying config to path: ${{ vars.CONFIG_PATH_TEST }}"
-          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ vars.CONFIG_PATH_TEST }}
+          scp -o StrictHostKeyChecking=no ./server3_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ vars.CONFIG_PATH_3 }}
 
   transfer-4:
     runs-on: self-hosted
@@ -44,4 +44,4 @@ jobs:
       - name: Transfer server 4 cfg
         run: |
           echo "Copying config to path: ${{ vars.CONFIG_PATH_TEST }}"
-          scp -o StrictHostKeyChecking=no ./server4_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ vars.CONFIG_PATH_TEST }}
+          scp -o StrictHostKeyChecking=no ./server4_SquadAdminTools.cfg ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ vars.CONFIG_PATH_4 }}
