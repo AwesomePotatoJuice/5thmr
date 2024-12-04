@@ -8,6 +8,10 @@ name: Copy configs to machine
 #    branches:
 #      - main
 
+#          - chmod 700 ~/.ssh
+#          - eval $(ssh-agent -s)
+#          - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#          - mkdir -p ~/.ssh
 on:
   workflow_dispatch
 
@@ -21,10 +25,10 @@ jobs:
 
       - name: Set up SSH
         run: |
-          - eval `ssh-agent -s`
-          - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-          - mkdir -p ~/.ssh
-          - chmod 700 ~/.ssh
+           - mkdir -p ~/.ssh/
+           - echo "$SSH_PRIVATE_KEY" > ../private.key
+           - sudo chmod 600 ../private.key
+           - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
 
       - name: Transfer server 3 cfg
         run: |
